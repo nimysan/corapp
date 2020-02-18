@@ -211,6 +211,6 @@ function poiPickerReady(poiPicker) {
     });
 
     poiPicker.onCityReady(function() {
-        poiPicker.suggest('7天酒店');
+        poiPicker.suggest('铂涛大厦');
     });
 }

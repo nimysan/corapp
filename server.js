@@ -34,6 +34,11 @@ home.get('data/', async (ctx) => {
     ctx.body = fullList;
 });
 
+home.get('data/update', async (ctx) => {
+    composeAllData(true);
+    ctx.body = "update backgroupd";
+});
+
 home.get('list/', async (ctx) => {
     let query = ctx.request.query;
     let inMiles = [];
@@ -58,9 +63,9 @@ router.use('/', home.routes(), home.allowedMethods())
 // 加载路由中间件
 app.use(router.routes()).use(router.allowedMethods())
 
-function composeAllData() {
+function composeAllData(forceUpdate) {
     let nowTime = (new Date()).getTime();
-    if (fullList.length > 0 && cacheTime && (nowTime - cacheTime) < 1000 * 60 * 60 * 12) {
+    if (forceUpdate !== true  && fullList.length > 0 && cacheTime && (nowTime - cacheTime) < 1000 * 60 * 60 * 12) {
         return;
     } //12个小时一次
     cacheTime = nowTime;
