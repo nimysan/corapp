@@ -67,6 +67,13 @@ function inMiles(p1, miles, list) {
     return unlucky;
 }
 
+
+function inMileByServer(p1, callback) {
+    $.get("/list?longitude=" + p1.lng + "&latitude=" + p1.lat, function(data) {
+        callback(data);
+    });
+}
+
 function paintUnlucks(map, tmp_data) {
 
     if (oldMarekrOverlay) { map.remove(oldMarekrOverlay); }
@@ -186,11 +193,16 @@ function poiPickerReady(poiPicker) {
         map.add(markerCurrent);
         currentMarker = markerCurrent;
 
-        var unluckyNear = inMiles(poi.location, 3, fullList);
-        if (unluckyNear.length > 0) {
+        //var unluckyNear = inMiles(poi.location, 3, fullList);
+        //if (unluckyNear.length > 0) {
+        //    paintUnlucks(map, unluckyNear);
+        //}
 
-            paintUnlucks(map, unluckyNear);
-        }
+        inMileByServer(poi.location, function(areas) {
+            paintUnlucks(map, areas);
+            map.setFitView();
+        });
+
         //console.log("0000 " + unluckyNear);
 
         map.setFitView();
