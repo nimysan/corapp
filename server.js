@@ -43,7 +43,7 @@ app.use(router.routes()).use(router.allowedMethods())
 
 function composeAllData() {
     let nowTime = (new Date()).getTime();
-    if (cacheTime && (nowTime - cacheTime) < 1000 * 60 * 60 * 12) {
+    if (fullList.length>0 && cacheTime && (nowTime - cacheTime) < 1000 * 60 * 60 * 12) {
         return;
     } //12个小时一次
     cacheTime = nowTime;
@@ -80,7 +80,7 @@ function composeAllData() {
             });
         })
     });
-    console.log("--- fullList--- seize:" + fullList);
+    console.log("--- fullList--- size:" + fullList.length);
 }
 
 //获取后缀名
