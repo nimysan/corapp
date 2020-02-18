@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="全国疫情场所地图">
+    <meta name="description" content="全国疫情场所地图">
+    <title>全国疫情场所地图</title>
+    <style type="text/css">
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: PingFang SC, Helvetica, Arial, sans-serif;
+    }
+
+    html,
+    body,
+    #container {
+        height: 100%;
+        width: 100%;
+    }
+
+    #ncovMap {
+        height: calc(100%);
+    }
+
+    .amap-marker-label {
+        border: 0;
+        background-color: transparent;
+    }
+
+    .poi-label {
+        position: relative;
+        top: 0;
+        right: 0;
+        min-width: 0;
+        height: 24px;
+        line-height: 24px;
+        font-size: 13px;
+        padding: 0 10px;
+        text-align: center;
+        color: #fff;
+        border-radius: 40px;
+    }
+
+    .poi-label-arrow {
+        font-size: 0;
+        line-height: 0;
+        display: inline-block;
+        position: absolute;
+        top: 24px;
+        left: calc(50% - 6px);
+        border-width: 6px;
+        border-bottom-width: 0;
+    }
+
+    .header {
+        padding-left: 30px;
+        padding-right: 30px;
+        color: #fff;
+        background-color: #006666;
+        height: 60px;
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-link {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .header-title {
+        margin: 0;
+        margin-left: 20px;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .item {
+        cursor: pointer;
+    }
+
+    .item a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .item+.item {
+        margin-left: 10px;
+    }
+
+    .contact-us {
+        position: relative;
+    }
+
+    .copyright {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        font-size: 12px;
+    }
+
+    .actions {
+        position: fixed;
+        left: 30px;
+        top: 90px;
+    }
+
+    .select {
+        font-size: 16px;
+        background-color: #fff;
+        padding: 3px 0px 5px 5px;
+    }
+
+    @media screen and (max-width: 640px) {
+        .header {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .logo-link span {
+            display: none;
+        }
+
+        .header {
+            font-size: 12px;
+        }
+
+        .header-title {
+            margin-left: 0px;
+        }
+
+        .item+.item {
+            margin-left: 5px;
+        }
+    }
+
+    #pickerBox {
+        position: absolute;
+        z-index: 9999;
+        top: 100px;
+        left: 30px;
+        width: 300px;
+    }
+
+    #pickerInput {
+        width: 200px;
+        padding: 5px 5px;
+    }
+
+    #poiInfo {
+        background: #fff;
+    }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=7b8855c842aa40d6aed9b9e490743eee"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/ui/1.0/main.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <header class="header">
+            <div class="header-left">
+                <span>铂涛疫情实时地图</span>
+            </div>
+            <div class="header-right">
+                <div class="item">
+                    <span><a href="https://mp.weixin.qq.com/s/Kd_cq_ZpFIuzGYddEsv0OA" target="_blank">
+                            确诊病例均已收治，不用担心和焦虑！地图红色标注为曾经有确诊病例小区。
+                            尽量少出门或避免前往，请大家勤洗手、戴口罩！数据以官方公告为准，仅供参考！
+                        </a></span>
+                </div>
+            </div>
+        </header>
+        <div id="ncovMap"></div>
+        <div id="pickerBox">
+            <input id="pickerInput" placeholder="输入关键字选取地点" />
+            <div id="poiInfo"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./pt.js?202002122"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5JZ8NBSRZG"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-5JZ8NBSRZG');
+    </script>
+</body>
+
+</html>
