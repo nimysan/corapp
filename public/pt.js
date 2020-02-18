@@ -12,10 +12,11 @@ var oldMarekrOverlay = null;
 const fullList = [];
 
 //远程读取数据
-$.get("/data", function(data) {
+$.get("/data/update", function(data) {
+    /* 这个是结合本地计算使用的，如果使用inMiles方法，那么此处应该处理
     for (var i = 0; i < data.length; i++) {
         fullList.push(data[i]);
-    }
+    }*/
 });
 
 function loadUnlucky(datafile) {
